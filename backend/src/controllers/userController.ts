@@ -15,7 +15,7 @@ export async function getUserProfileHandler(req: Request, res: Response) {
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    res.json(user);
+    res.json({ message: "User found", data: user });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }

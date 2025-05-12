@@ -8,7 +8,7 @@ export interface Business {
   bank_account_name?: string;
   bank_id?: string;
   bank_code?: string;
-  maxAmountTransfer?: string;
+  maxamountransfer?: string;
   address_wallet?: string;
   created_at?: string;
   updated_at?: string;

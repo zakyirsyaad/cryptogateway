@@ -6,11 +6,6 @@ export async function saveBusinessFromOnboarding(
   nama: string,
   deskripsi: string,
   logo: string,
-  bank_account_number: string,
-  bank_account_name: string,
-  bank_id: string,
-  bank_code: string,
-  maxAmountTransfer: string,
   address_wallet: string
 ): Promise<Business> {
   const { data, error } = await supabase
@@ -21,11 +16,6 @@ export async function saveBusinessFromOnboarding(
         nama,
         deskripsi,
         logo,
-        bank_account_number,
-        bank_account_name,
-        bank_id,
-        bank_code,
-        maxAmountTransfer,
         address_wallet,
       },
     ])

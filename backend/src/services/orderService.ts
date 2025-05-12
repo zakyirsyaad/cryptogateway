@@ -2,6 +2,8 @@ import {
   createOrder,
   getOrderById,
   getAllOrders,
+  getRecentPaidOrders,
+  getOrdersByBusinessId,
 } from "../repositories/orderRepository";
 import { Order } from "../models/Order";
 
@@ -15,6 +17,19 @@ export async function fetchOrderById(id: string): Promise<Order | null> {
 
 export async function fetchAllOrders(): Promise<Order[]> {
   return await getAllOrders();
+}
+
+export async function fetchRecentPaidOrders(
+  business_id: string,
+  limit: number = 10
+): Promise<Order[]> {
+  return await getRecentPaidOrders(business_id, limit);
+}
+
+export async function fetchOrdersByBusinessId(
+  business_id: string
+): Promise<Order[]> {
+  return await getOrdersByBusinessId(business_id);
 }
 
 // export async function updateOrderStatus(order: Partial<Order>): Promise<Order> {

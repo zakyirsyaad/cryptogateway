@@ -3,6 +3,8 @@ import {
   createNewOrder,
   fetchOrderById,
   fetchAllOrders,
+  fetchRecentPaidOrders,
+  fetchOrdersByBusinessId,
 } from "../services/orderService";
 import supabase from "../config/supabase";
 import { v4 as uuidv4 } from "uuid";
@@ -130,7 +132,7 @@ export async function getOrderByIdHandler(req: Request, res: Response) {
     if (!order) {
       return res.status(404).json({ error: "Order not found" });
     }
-    res.json(order);
+    res.json({ message: "Order fetched", data: order });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
@@ -139,7 +141,31 @@ export async function getOrderByIdHandler(req: Request, res: Response) {
 export async function getAllOrdersHandler(_: Request, res: Response) {
   try {
     const orders = await fetchAllOrders();
-    res.json(orders);
+    res.json({ message: "Orders fetched", data: orders });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+export async function getRecentPaidOrdersHandler(req: Request, res: Response) {
+  try {
+    const limit = req.query.limit
+      ? parseInt(req.query.limit as string, 10)
+      : 10;
+    const orders = await fetchRecentPaidOrders(req.params.business_id, limit);
+    res.json({ message: "Orders fetched", data: orders });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+export async function getOrdersByBusinessIdHandler(
+  req: Request,
+  res: Response
+) {
+  try {
+    const orders = await fetchOrdersByBusinessId(req.params.business_id);
+    res.json({ message: "Orders fetched", data: orders });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
